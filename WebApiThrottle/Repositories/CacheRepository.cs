@@ -25,7 +25,7 @@ namespace WebApiThrottle
         /// <param name="expirationTime">
         /// The expiration Time.
         /// </param>
-        public void Save(string id, ThrottleCounter throttleCounter, TimeSpan expirationTime)
+        public void Save(string id, ThrottleCounter throttleCounter, TimeSpan expirationTime, string clientKey)
         {
             if (HttpContext.Current.Cache[id] != null)
             {

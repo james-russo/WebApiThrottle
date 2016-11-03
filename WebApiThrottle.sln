@@ -15,6 +15,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{D4FF49
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiThrottle.WebApiDemo", "WebApiThrottle.WebApiDemo\WebApiThrottle.WebApiDemo.csproj", "{62251AC4-F48A-442B-B1B3-0164D97661EE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{30DD5B32-E770-48E7-810A-AE053144B8BA}"
+	ProjectSection(SolutionItems) = preProject
+		Sql_Schema.sql = Sql_Schema.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

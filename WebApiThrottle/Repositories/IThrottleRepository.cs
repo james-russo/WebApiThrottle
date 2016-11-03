@@ -15,7 +15,7 @@ namespace WebApiThrottle
 
         ThrottleCounter? FirstOrDefault(string id);
 
-        void Save(string id, ThrottleCounter throttleCounter, TimeSpan expirationTime);
+        void Save(string id, ThrottleCounter throttleCounter, TimeSpan expirationTime, string clientKey);
 
         void Remove(string id);
 

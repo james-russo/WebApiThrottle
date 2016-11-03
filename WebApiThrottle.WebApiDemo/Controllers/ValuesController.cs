@@ -9,7 +9,7 @@ namespace WebApiThrottle.WebApiDemo.Controllers
 {
     public class ValuesController : ApiController
     {
-        [EnableThrottling(PerSecond = 2)]
+        //[EnableThrottling(PerSecond = 1000)]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
@@ -32,6 +32,7 @@ namespace WebApiThrottle.WebApiDemo.Controllers
 
             //get policy object from cache
             var policy = policyRepository.FirstOrDefault(ThrottleManager.GetPolicyKey());
+            
 
             //update client rate limits
             policy.ClientRules["api-client-key-1"] =

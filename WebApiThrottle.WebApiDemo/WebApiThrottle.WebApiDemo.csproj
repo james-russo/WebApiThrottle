@@ -100,6 +100,8 @@
     <Compile Include="Helpers\CustomThrottleLogger.cs" />
     <Compile Include="Helpers\CustomThrottlingFilter.cs" />
     <Compile Include="Helpers\CustomThrottlingHandler.cs" />
+    <Compile Include="Helpers\SqlLogger.cs" />
+    <Compile Include="Helpers\SqlThrottleRepository.cs" />
     <Compile Include="Net\CustomIpAddressParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

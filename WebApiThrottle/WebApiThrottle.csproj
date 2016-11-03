@@ -73,6 +73,7 @@
     <Compile Include="Net\HttpRequestExtensions.cs" />
     <Compile Include="Net\IIpAddressParser.cs" />
     <Compile Include="Net\IpAddressUtil.cs" />
+    <Compile Include="Providers\SqlPolicyProvider.cs" />
     <Compile Include="Repositories\IPolicyRepository.cs" />
     <Compile Include="Repositories\PolicyMemoryCacheRepository.cs" />
     <Compile Include="Repositories\PolicyCacheRepository.cs" />

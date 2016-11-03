@@ -17,7 +17,7 @@ namespace WebApiThrottle
         /// <summary>
         /// Insert or update
         /// </summary>
-        public void Save(string id, ThrottleCounter throttleCounter, TimeSpan expirationTime)
+        public void Save(string id, ThrottleCounter throttleCounter, TimeSpan expirationTime, string clientKey)
         {
             if (memCache[id] != null)
             {

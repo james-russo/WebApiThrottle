@@ -211,7 +211,7 @@ namespace WebApiThrottle
                 }
 
                 // stores: id (string) - timestamp (datetime) - total (long)
-                Repository.Save(id, throttleCounter, timeSpan);
+                Repository.Save(id, throttleCounter, timeSpan, requestIdentity.ClientKey);
             }
 
             return throttleCounter;

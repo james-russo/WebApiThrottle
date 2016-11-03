@@ -49,7 +49,7 @@ namespace WebApiThrottle
             };
         }
 
-        public void Save(string id, ThrottleCounter throttleCounter, TimeSpan expirationTime)
+        public void Save(string id, ThrottleCounter throttleCounter, TimeSpan expirationTime, string clientKey)
         {
             var entry = new ThrottleCounterWrapper
             {
