@@ -34,7 +34,7 @@ namespace WebApiThrottle.WebApiDemo.Helpers
 
         }
 
-        public void Migrate()
+        public SqlThrottleRepository Migrate()
         {
             if (string.IsNullOrEmpty(_connectionString))
                 throw new Exception("Must be called after initialization");
@@ -48,12 +48,12 @@ namespace WebApiThrottle.WebApiDemo.Helpers
                     var result = command.ExecuteScalar();
 
                     if ((int)result > 0)
-                        return;
+                        return this;
                 }
             }
 
 
-            var assembly = Assembly.GetExecutingAssembly();
+            var assembly = typeof(IThrottleRepository).Assembly;
 
             var resourceName = "WebApiThrottle.Resources.Sql_Schema.sql";
 
@@ -79,6 +79,8 @@ namespace WebApiThrottle.WebApiDemo.Helpers
                     sqlCommand.ExecuteNonQuery();
                 }
             }
+
+            return this;
         }
 
 
