@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 
 namespace WebApiThrottle.WebApiDemo.Helpers
@@ -28,7 +30,57 @@ namespace WebApiThrottle.WebApiDemo.Helpers
 
             public static readonly string Truncate = $"TRUNCATE TABLE {TableName}";
 
+            internal static readonly string SchemaCheck = $"SELECT COUNT('x') FROM information_schema.schemata WHERE schema_name = 'Throttler";
+
         }
+
+        public void Migrate()
+        {
+            if (string.IsNullOrEmpty(_connectionString))
+                throw new Exception("Must be called after initialization");
+
+            using (var sqlConn = new SqlConnection(_connectionString))
+            {
+                using (var command = new SqlCommand(Sql.SchemaCheck, sqlConn))
+                {
+                    sqlConn.Open();
+
+                    var result = command.ExecuteScalar();
+
+                    if ((int)result > 0)
+                        return;
+                }
+            }
+
+
+            var assembly = Assembly.GetExecutingAssembly();
+
+            var resourceName = "WebApiThrottle.Resources.Sql_Schema.sql";
+
+            var sql = string.Empty;
+
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            {
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    sql = reader.ReadToEnd();
+                }
+            }
+
+            if (string.IsNullOrEmpty(sql))
+                throw new Exception("An error occured generating sql");
+
+            using (var sqlConnection = new SqlConnection(_connectionString))
+            {
+                using (var sqlCommand = new SqlCommand(sql, sqlConnection))
+                {
+                    sqlConnection.Open();
+
+                    sqlCommand.ExecuteNonQuery();
+                }
+            }
+        }
+
 
         private readonly string _connectionString;
 
