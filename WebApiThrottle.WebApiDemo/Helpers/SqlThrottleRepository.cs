@@ -30,7 +30,7 @@ namespace WebApiThrottle.WebApiDemo.Helpers
 
             public static readonly string Truncate = $"TRUNCATE TABLE {TableName}";
 
-            internal static readonly string SchemaCheck = $"SELECT COUNT('x') FROM information_schema.schemata WHERE schema_name = 'Throttler";
+            internal static readonly string SchemaCheck = $"SELECT COUNT('x') FROM information_schema.schemata WHERE schema_name = 'Throttler'";
 
         }
 
@@ -72,11 +72,19 @@ namespace WebApiThrottle.WebApiDemo.Helpers
 
             using (var sqlConnection = new SqlConnection(_connectionString))
             {
-                using (var sqlCommand = new SqlCommand(sql, sqlConnection))
-                {
-                    sqlConnection.Open();
+                sqlConnection.Open();
 
-                    sqlCommand.ExecuteNonQuery();
+                string[] batches = sql.Split(new[] { "GO" + Environment.NewLine }, StringSplitOptions.None);
+
+                foreach (string batch in batches)
+                {
+                    if (!string.IsNullOrEmpty(batch))
+                    {
+                        using (var sqlCommand = new SqlCommand(batch, sqlConnection))
+                        {
+                            sqlCommand.ExecuteNonQuery();
+                        }
+                    }
                 }
             }
 
